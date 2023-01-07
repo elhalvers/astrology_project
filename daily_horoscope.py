@@ -16,8 +16,12 @@ class Horoscope:
            }
         response = requests.request("POST", url, headers=headers, params=querystring)
         astro_dict = json.loads(response.text)
-        return astro_dict["description"]
 
-Jennifer = Horoscope("capricorn")
-print(Jennifer.get_horoscope())
-        
+response = input("Hello! Would you like your horoscope for today? (y,n) ")
+if response == 'y':
+    sign = input("Great! What is your sign? ")
+    player = Horoscope(sign)
+    print()
+    print(player.astro_dict["description"])
+else:
+    print("Ok. Maybe another time.")
