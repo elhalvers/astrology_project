@@ -7,6 +7,7 @@ import json
 class Horoscope:
     def __init__(self, sign):
         self.sign = sign
+        self.astro_data = {} 
     def get_horoscope(self):
         url = "https://sameer-kumar-aztro-v1.p.rapidapi.com/"
         querystring = {"sign":self.sign,"day":"today"}
@@ -15,13 +16,15 @@ class Horoscope:
 	      "X-RapidAPI-Host": "sameer-kumar-aztro-v1.p.rapidapi.com"
            }
         response = requests.request("POST", url, headers=headers, params=querystring)
-        astro_dict = json.loads(response.text)
+        self.astro_data = json.loads(response.text)
+
 
 response = input("Hello! Would you like your horoscope for today? (y,n) ")
 if response == 'y':
     sign = input("Great! What is your sign? ")
     player = Horoscope(sign)
+    player.get_horoscope()
     print()
-    print(player.astro_dict["description"])
+    print(player.astro_data["description"])
 else:
     print("Ok. Maybe another time.")
