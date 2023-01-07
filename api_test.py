@@ -2,17 +2,22 @@
 
 import requests
 import json
-url = "https://sameer-kumar-aztro-v1.p.rapidapi.com/"
 
-querystring = {"sign":"aquarius","day":"today"}
 
-headers = {
-	"X-RapidAPI-Key": "43b2e52da3msh46b3b1e9fb62784p135409jsn9c7ea8f93068",
-	"X-RapidAPI-Host": "sameer-kumar-aztro-v1.p.rapidapi.com"
-}
+class Horoscope:
+    def __init__(self, sign):
+        self.sign = sign
+    def get_horoscope(self):
+        url = "https://sameer-kumar-aztro-v1.p.rapidapi.com/"
+        querystring = {"sign":self.sign,"day":"today"}
+        headers = {
+	      "X-RapidAPI-Key": "43b2e52da3msh46b3b1e9fb62784p135409jsn9c7ea8f93068",
+	      "X-RapidAPI-Host": "sameer-kumar-aztro-v1.p.rapidapi.com"
+           }
+        response = requests.request("POST", url, headers=headers, params=querystring)
+        astro_dict = json.loads(response.text)
+        return astro_dict["description"]
 
-response = requests.request("POST", url, headers=headers, params=querystring)
-
-my_dict = json.loads(response.text)
-
-print(type(my_dict))
+Jennifer = Horoscope("capricorn")
+print(Jennifer.get_horoscope())
+        
